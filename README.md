@@ -9,7 +9,7 @@
 * `OverlayFS` mode enabled
 * Home directory sandboxed
 * Network sandboxed
-* А full `DE` (`XFCE`) in `windowed` (`Xephyr`) mode or on `TTY` (`Xorg`)
+* А full `DE` (`XFCE`) in `windowed/full screen` (`Xephyr`) mode or on `TTY` (`Xorg`)
 
 ## Requirements:
 
@@ -31,4 +31,4 @@ chmod +x portarch
 * For greater ease of use, I recommend creating a separate directory for the container before launching.
 * You can also add it to your `PATH`
 * To run a full-fledged `DE` on `TTY` with builtin `Xorg`, just switch to a free `TTY` by `CTRL+ALT+F1-12`, login and run `portarch` without arguments
-* When running `portarch` without arguments on the desktop of the host system, a full-fledged `DE` will start in windowed mode with `Xephyr` (see `XEPHYR_`* and `UNSHARE_CLIPBOARD` vars in [RunImage usage](https://github.com/VHSgunzo/runimage#usage-from-runimage-help))
+* When running `portarch` without arguments on the desktop of the host system, a full-fledged `DE` will start in `windowed/full screen` mode with `Xephyr` (see `XEPHYR_`* and `UNSHARE_CLIPBOARD` vars in [RunImage usage](https://github.com/VHSgunzo/runimage#usage-from-runimage-help))
