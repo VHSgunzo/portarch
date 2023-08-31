@@ -4,7 +4,7 @@ pkgname='runimage-rootfs-portarch'
 pkgver='0.39.1'
 pkgrel='2'
 pkgdesc='Rootfs configuration for RunImage container'
-url="https://github.com/VHSgunzo/runimage-portarch"
+url="https://github.com/VHSgunzo/portarch"
 license=('MIT')
 arch=('any')
 source=(
@@ -21,6 +21,6 @@ conflicts=(
 # install='portarch.install'
 
 package() {
-    cp -arTf --no-preserve=ownership "$srcdir/runimage-rootfs/base" "$pkgdir"
+    cp -arTf --no-preserve=ownership "$srcdir/runimage-rootfs/rootfs" "$pkgdir"
     cp -arTf --no-preserve=ownership "$srcdir/rootfs" "$pkgdir"
 }
