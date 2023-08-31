@@ -1,0 +1,31 @@
+DONT_NOTIFY=1
+SANDBOX_NET=1
+SANDBOX_HOME_DIR="$SANDBOXHOMEDIR/portarch"
+
+if [ -n "$RUNIMAGE" ]
+    then
+        KEEP_OVERFS=1
+        OVERFS_ID=portarch
+fi
+
+if [ "$RUNSRCNAME" == "portarch" ]
+    then
+        [ -n "$1" ] && \
+        unset AUTORUN||\
+        AUTORUN=rundesktop
+fi
+
+SETENV_ARGS+=(
+    "--setenv" "NO_AT_BRIDGE" "1"
+    "--setenv" "GDK_BACKEND" "x11"
+    "--setenv" "DESKTOP_SESSION" "xfce"
+    "--setenv" "GTK_THEME" "Adwaita:dark"
+    "--setenv" "XDG_CURRENT_DESKTOP" "XFCE"
+    "--setenv" "QT_QPA_PLATFORMTHEME" "qt5ct"
+)
+
+[[ -f "$RUNROOTFS/etc/gtk-2.0/gtkrc" && \
+ ! -f "$HOME/.config/gtk-2.0/gtkrc" && \
+ ! -f "$HOME/.config/gtkrc" && \
+ ! -f "$HOME/.gtkrc-2.0" ]] && \
+SETENV_ARGS+=("--setenv" "GTK2_RC_FILES" "/etc/gtk-2.0/gtkrc")
