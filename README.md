@@ -17,7 +17,7 @@
 
 ## To get started:
 
-1. Download latest release from the [**releases**](https://github.com/VHSgunzo/portarch/releases) page.
+1. Download latest release from the [**releases**](https://github.com/VHSgunzo/portarch/releases) page. ([HF mirror](https://huggingface.co/runimage/portarch/tree/main/releases))
 2. Make it executable before run:
 ```
 chmod +x portarch
