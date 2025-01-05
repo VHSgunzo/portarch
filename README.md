@@ -31,4 +31,4 @@ chmod +x portarch
 * For greater ease of use, I recommend creating a separate directory for the container before launching.
 * You can also add it to your `PATH`
 * To run a full-fledged `DE` on `TTY` with builtin `Xorg`, just switch to a free `TTY` by `CTRL+ALT+F1-12`, login and run `portarch` without arguments
-* When running `portarch` without arguments on the desktop of the host system, a full-fledged `DE` will start in `windowed/full screen` mode with `Xephyr` (see `XEPHYR_`* and `UNSHARE_CLIPBOARD` vars in [RunImage usage](https://github.com/VHSgunzo/runimage#usage-from-runimage-help))
+* When running `portarch` without arguments on the desktop of the host system, a full-fledged `DE` will start in `windowed/full screen` mode with `Xephyr` (see `RIM_XEPHYR_`* and `RIM_DESKTOP_UNCLIP` vars in [RunImage usage](https://github.com/VHSgunzo/runimage#usage-from-runimage-help))

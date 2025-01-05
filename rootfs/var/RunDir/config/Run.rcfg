@@ -1,21 +1,21 @@
-DONT_NOTIFY=1
-SANDBOX_NET=1
-SANDBOX_HOME_DIR="$SANDBOXHOMEDIR/portarch"
+RIM_RUN_IN_ONE="${RIM_RUN_IN_ONE:=1}"
+RIM_SANDBOX_NET="${RIM_SANDBOX_NET:=1}"
+RIM_SANDBOX_HOME_DIR="${RIM_SANDBOX_HOME_DIR:=$SANDBOXHOMEDIR/portarch}"
 
 if [ -n "$RUNIMAGE" ]
     then
-        KEEP_OVERFS=1
-        OVERFS_ID=portarch
+        RIM_KEEP_OVERFS="${RIM_KEEP_OVERFS:=1}"
+        RIM_OVERFS_ID="${RIM_OVERFS_ID:=portarch}"
 fi
 
 if [ "$RUNSRCNAME" == "portarch" ]
     then
         [ -n "$1" ] && \
-        unset AUTORUN||\
-        AUTORUN=rundesktop
+        unset RIM_AUTORUN||\
+        RIM_AUTORUN=rim-desktop
 fi
 
-SETENV_ARGS+=(
+RIM_BWRAP_ARGS+=(
     "--setenv" "NO_AT_BRIDGE" "1"
     "--setenv" "GDK_BACKEND" "x11"
     "--setenv" "DESKTOP_SESSION" "xfce"
@@ -28,4 +28,4 @@ SETENV_ARGS+=(
  ! -f "$HOME/.config/gtk-2.0/gtkrc" && \
  ! -f "$HOME/.config/gtkrc" && \
  ! -f "$HOME/.gtkrc-2.0" ]] && \
-SETENV_ARGS+=("--setenv" "GTK2_RC_FILES" "/etc/gtk-2.0/gtkrc")
+RIM_BWRAP_ARGS+=("--setenv" "GTK2_RC_FILES" "/etc/gtk-2.0/gtkrc")
