@@ -13,6 +13,7 @@ source=(
 )
 sha256sums=('SKIP' 'SKIP' 'SKIP')
 provides=('filesystem=2024.11.21')
+depends=('runimage-utils')
 conflicts=(
     'filesystem'
     'runimage-rootfs'
@@ -22,6 +23,7 @@ install='portarch.install'
 
 package() {
     cp -arTf --no-preserve=ownership "$srcdir/runimage-rootfs/rootfs" "$pkgdir"
+    install -Dm644 "$srcdir/runimage-rootfs/mirrorlist-$CARCH" "$pkgdir/var/rootfs/etc/pacman.d/mirrorlist"
     cp -arTf --no-preserve=ownership "$srcdir/rootfs" "$pkgdir"
     install -Dm644 "pacman-$CARCH.conf" "$pkgdir/var/rootfs/etc/pacman.conf"
     find "$pkgdir" -type f -name '.keep' -exec rm -f {} \;
