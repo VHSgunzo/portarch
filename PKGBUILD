@@ -15,7 +15,6 @@ sha256sums=('SKIP' 'SKIP' 'SKIP')
 provides=('filesystem=2024.11.21')
 depends=('runimage-utils')
 conflicts=(
-    'filesystem'
     'runimage-rootfs'
     'runimage-rootfs-lwrun'
 )
