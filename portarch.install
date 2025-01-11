@@ -1,6 +1,13 @@
 ## arg 1:  the new package version
 pre_install() {
     rm -rf /var/lib/pacman/local/filesystem-*
+    updhook=/usr/share/libalpm/scripts/update-rootfs
+    if [ -f "$updhook" ] && \
+        ! grep -q unset "$updhook"
+        then
+            sed -i '2i\unset LD_PRELOAD' "$updhook"
+            sed -i 's|rootfs /|rootfs /var/RunDir/rootfs|' "$updhook"
+    fi
 }
 
 ## arg 1:  the new package version
