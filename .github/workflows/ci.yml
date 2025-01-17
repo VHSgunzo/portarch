@@ -1,0 +1,59 @@
+name: ⚙️ Continuous update 📦
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 0" #At 00:00 UTC on Sunday every Week
+
+jobs:
+  update_rebuild_and_release:
+    name: portarch-update
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: main
+          filter: "blob:none"
+
+      - name: Install deps
+        run: |
+          sudo sh -c 'apt update && apt install zsync -y'
+          sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns <<<0
+
+      - name: Bootstrap RunImage
+        run: |
+            set -x ; set -e
+            mkdir -p release && cd release||exit 1
+
+            curl -LO https://github.com/VHSgunzo/portarch/releases/download/continuous/portarch
+            chmod +x portarch
+            ./portarch --runtime-extract
+            rm -f portarch
+            ./RunDir/Run rim-update
+            ./RunDir/Run rim-shrink --back --docs --locales --pkgcache --pycache --strip
+            ./RunDir/Run rim-pkgls > pkg_list-portarch.txt
+            ./RunDir/Run rim-build -d -b 22 -z -c 22 portarch
+            rm -rf RunDir
+            sha256sum_portarch="$(sha256sum portarch)"
+            zsyncmake portarch
+
+            echo "\
+            -----------------------------------------------------------------------------------------------------------------------------
+            * [portarch](https://github.com/VHSgunzo/portarch/releases/download/continuous/portarch) | [pkg_list-portarch.txt](https://github.com/VHSgunzo/portarch/releases/download/continuous/pkg_list-portarch.txt)
+            -----------------------------------------------------------------------------------------------------------------------------
+            ## sha256sum:
+            \`\`\`
+            ${sha256sum_portarch}
+            \`\`\`" > ../RELEASE_NOTE.md
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "continuous"
+          prerelease: false
+          draft: false
+          body_path: "RELEASE_NOTE.md"
+          files: release/*
