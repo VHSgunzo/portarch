@@ -36,7 +36,7 @@ jobs:
             ./RunDir/Run rim-shrink --back --docs --locales --pkgcache --pycache --strip
             ./RunDir/Run rim-pkgls > pkg_list-portarch.txt
             ./RunDir/Run rim-build -d -b 22 -z -c 22 portarch
-            rm -rf RunDir
+            chmod u+rw -R RunDir && rm -rf RunDir
             sha256sum_portarch="$(sha256sum portarch)"
             zsyncmake portarch
 
