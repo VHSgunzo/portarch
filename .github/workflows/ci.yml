@@ -33,7 +33,6 @@ jobs:
             ./portarch --runtime-extract
             rm -f portarch
             ./RunDir/Run rim-update
-            yes|./RunDir/Run pac -R pulseaudio
             ./RunDir/Run rim-shrink --back --docs --locales --pkgcache --pycache --strip
             ./RunDir/Run rim-pkgls > pkg_list-portarch.txt
             ./RunDir/Run rim-build -d -b 22 -z -c 22 portarch
